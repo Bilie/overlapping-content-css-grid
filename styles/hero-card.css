@@ -1,0 +1,82 @@
+:root {
+    --content-width: 900px;
+    --hero-image-height: 400px;
+    --column-gap: 20px;
+}
+
+.hero-card {
+    background-color: white;
+}
+
+.hero-card .content-container {
+    display: grid;
+    grid-gap: var(--column-gap);
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 200px 200px 1fr;
+
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hero-card .hero-image {
+    grid-column: 1 / span 12;
+    grid-row: 1 / span 2;
+    background-color: #f8f8f8;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../images/brooke-cagle-tLG2hcpITZE-unsplash.jpg);
+    background-image: linear-gradient(rgba(255, 105, 180, 0.3), rgba(255, 105, 180, 0.3)), url(../images/brooke-cagle-tLG2hcpITZE-unsplash.jpg);
+    background-size: cover;
+    background-position: left center;
+    background-repeat: no-repeat;
+    border-radius: 6px;
+}
+
+.hero-card .hero-content {
+    grid-column: 1 / span 6;
+    padding: 20px;
+}
+
+.hero-card .hero-phone-container {
+    grid-column: 8 / span 4;
+    grid-row: span 2 / -1;
+    z-index: 10;
+    justify-self: center;
+}
+
+/* Phone */
+.hero-card .hero-phone {
+    position: relative;
+    border-radius: 20px;
+    box-shadow: 0 0 12px 8px rgba(0,0,0,0.4), 0 0 0 8px black;
+    border-top: 8px solid black;
+    border-bottom: 8px solid black;
+    background-color: white;
+    width: 200px;
+    height: 400px;
+}
+
+.hero-card .hero-phone:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: block;
+    width: 60px;
+    height: 10px;
+    border-radius: 0 0 4px 4px;
+    background-color: black;
+    content: '';
+}
+
+/* Hero texts */
+.hero-card .hero-headline {
+    font-size: 3.2rem;
+    line-height: 1.1;
+    margin-bottom: 2.4rem;
+}
+
+.hero-card .hero-lead {
+    font-size: 1.8rem;
+    line-height: 1.5;
+}
