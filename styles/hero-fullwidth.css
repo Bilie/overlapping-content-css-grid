@@ -6,7 +6,7 @@
 
 .hero-fullwidth {
     display: grid;
-    grid-template-columns: auto minmax(auto,var(--content-width)) auto;
+    grid-template-columns: 1fr minmax(min-content,var(--content-width)) 1fr;
     background-color: white;
 }
 
