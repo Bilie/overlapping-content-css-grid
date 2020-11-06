@@ -1,6 +1,6 @@
 :root {
     --content-width: 900px;
-    --hero-image-height: 400px;
+    --hero-image-height: 300px;
     --column-gap: 20px;
 }
 
@@ -12,8 +12,8 @@
     display: grid;
     grid-gap: var(--column-gap);
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: 200px 200px 1fr;
-
+    grid-template-rows: 250px calc(var(--hero-image-height) / 2) auto;
+    grid-auto-rows: auto;
     max-width: var(--content-width);
     margin: 0 auto;
     padding: 0 20px;
@@ -32,13 +32,13 @@
 }
 
 .hero-card .hero-content {
-    grid-column: 1 / span 6;
+    grid-column: 1 / span 12;
     padding: 20px;
 }
 
 .hero-card .hero-phone-container {
-    grid-column: 8 / span 4;
-    grid-row: span 2 / -1;
+    grid-column: 1 / span 12;
+    grid-row: 2 / span 2;
     z-index: 10;
     justify-self: center;
 }
@@ -51,8 +51,8 @@
     border-top: 8px solid black;
     border-bottom: 8px solid black;
     background-color: white;
-    width: 200px;
-    height: 400px;
+    width: 150px;
+    height: 300px;
 }
 
 .hero-card .hero-phone:before {
@@ -71,7 +71,7 @@
 
 /* Hero texts */
 .hero-card .hero-headline {
-    font-size: 3.2rem;
+    font-size: 3.8rem;
     line-height: 1.1;
     margin-bottom: 2.4rem;
 }
@@ -79,4 +79,24 @@
 .hero-card .hero-lead {
     font-size: 1.8rem;
     line-height: 1.5;
+}
+
+@media (min-width: 700px) {
+    :root {
+        --hero-image-height: 400px;
+    }
+
+    .hero-card .hero-content {
+        grid-column: 1 / span 7;
+    }
+
+    .hero-card .hero-phone-container {
+        grid-column: 8 / span 4;
+        grid-row: span 2 / -1;
+    }
+
+    .hero-card .hero-phone {
+        width: 200px;
+        height: 400px;
+    }
 }
