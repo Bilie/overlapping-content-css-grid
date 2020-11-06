@@ -15,3 +15,86 @@ body {
     font-size: 1.6rem;
     color: #444;
 }
+
+/* App ui */
+.app-ui {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: white;
+    padding: 20px;
+}
+
+.app-ui-headline {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 900;
+    font-size: 2.6rem;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.app-ui-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.app-ui-row-avatar {
+    width:30px;
+    height:30px;
+    border-radius: 50%;
+    background-color: mistyrose;
+    margin-right: 20px;
+    overflow: hidden;
+}
+
+.app-ui-row-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.app-ui-row-content {
+    flex-grow: 1;
+}
+
+.app-ui-row-content-line {
+    height: 6px;
+    border-radius: 3px;
+    background-color: mistyrose;
+    margin-bottom: 4px;
+}
+
+.app-ui-row:nth-of-type(odd) .app-ui-row-content-line:nth-of-type(1) {
+    width: 75%;
+    background-color: hotpink;
+}
+
+.app-ui-row:nth-of-type(odd) .app-ui-row-content-line:nth-of-type(2) {
+    width: 56%;
+    background-color: mistyrose;
+}
+
+.app-ui-row:nth-of-type(odd) .app-ui-row-content-line:nth-of-type(3) {
+    width: 36%;
+    background-color: rosybrown;
+}
+
+.app-ui-row:nth-of-type(even) .app-ui-row-content-line:nth-of-type(1) {
+    width: 80%;
+    background-color: rosybrown;
+}
+
+.app-ui-row:nth-of-type(even) .app-ui-row-content-line:nth-of-type(2) {
+    width: 80%;
+    background-color: mistyrose;
+}
+
+.app-ui-row:nth-of-type(even) .app-ui-row-content-line:nth-of-type(3) {
+    width: 40%;
+    background-color: hotpink;
+}
