@@ -12,7 +12,7 @@
     display: grid;
     grid-gap: var(--column-gap);
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: 250px calc(var(--hero-image-height) / 2) auto;
+    grid-template-rows: 250px calc(var(--hero-image-height) * 0.6) auto;
     grid-auto-rows: auto;
     max-width: var(--content-width);
     margin: 0 auto;
