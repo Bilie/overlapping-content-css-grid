@@ -1,5 +1,5 @@
 :root {
-    --content-width: 900px;
+    --content-width: 1200px;
     --hero-image-height: 300px;
     --column-gap: 20px;
 }
@@ -32,7 +32,7 @@
 
     background-color: #f8f8f8;
     background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));
-    background-image: linear-gradient(rgba(255, 105, 180, 0.3), rgba(255, 105, 180, 0.3));
+    /* background-image: linear-gradient(rgba(255, 105, 180, 0.3), rgba(255, 105, 180, 0.3)); */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center 40%;
@@ -57,7 +57,7 @@
  .hero-fullwidth .hero-phone {
      position: relative;
     border-radius: 20px;
-    box-shadow: 0 0 12px 8px rgba(0,0,0,0.4), 0 0 0 10px black, 5px 0 0 10px black;
+    box-shadow: 0 0 12px 8px rgba(0,0,0,0.4), -3px -2px 0 2px #000000, -5px -2px 0 3px #ffffff59, 0 0 0 10px black, 5px 0 0 10px black;
     border-top: 8px solid black;
     border-bottom: 8px solid black;
     background-color: white;
@@ -102,7 +102,7 @@
     height: 100%;
     object-fit: cover;
     position: relative;
-    z-index: 3;
+    z-index: 3;    
 }
 
 .hero-fullwidth .hero-image:before {
