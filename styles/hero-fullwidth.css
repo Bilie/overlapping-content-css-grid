@@ -1,7 +1,9 @@
 :root {
-    --content-width: 1200px;
-    --hero-image-height: 300px;
+    --content-width: 1000px;
+    --hero-image-height: 480px;
     --column-gap: 20px;
+    --phone-height: 300px;
+    --overlap-percentage: 0.8;
 }
 
 .hero-fullwidth {
@@ -11,15 +13,12 @@
 }
 
 .hero-fullwidth .content-container {
+    --overlap: calc(var(--phone-height) * var(--overlap-percentage));
+
     display: grid;
     grid-gap: var(--column-gap);
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: 400px calc(var(--hero-image-height) * 0.6) auto;
-
-    max-width: var(--content-width);
-    margin: 0 auto;
-    padding: 0 20px;
-
+    grid-template-rows: calc(var(--hero-image-height) - var(--overlap)) var(--overlap) auto;
     grid-row: 1;
     grid-column: 2 / span 1;
 }
@@ -28,7 +27,7 @@
     position: relative;
     grid-column: 1 / -1;
     grid-row: 1 / span 2;
-    height: calc(400px + var(--hero-image-height) * 0.6 + var(--column-gap) * 1);
+    height: calc(var(--hero-image-height) + var(--column-gap) * 1);
 
     background-color: #f8f8f8;
     background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));
@@ -55,14 +54,14 @@
 }
 
  .hero-fullwidth .hero-phone {
-     position: relative;
+    position: relative;
     border-radius: 20px;
     box-shadow: 0 0 12px 8px rgba(0,0,0,0.4), -3px -2px 0 2px #000000, -5px -2px 0 3px #ffffff59, 0 0 0 10px black, 5px 0 0 10px black;
     border-top: 8px solid black;
     border-bottom: 8px solid black;
     background-color: white;
     width: 150px;
-    height: 300px;
+    height: var(--phone-height);
 
     transform: rotateY(-34deg) rotateZ(15deg) rotateX(5deg);
 }
@@ -133,7 +132,9 @@
 
 @media (min-width: 700px) {
     :root {
-        --hero-image-height: 400px;
+        --hero-image-height: 500px;
+        --phone-height: 400px;
+        --overlap-percentage: 0.3;
     }
 
     .hero-fullwidth .hero-content {
@@ -148,6 +149,6 @@
 
     .hero-fullwidth .hero-phone {
         width: 200px;
-        height: 400px;
+        height: var(--phone-height);
     }    
 }
