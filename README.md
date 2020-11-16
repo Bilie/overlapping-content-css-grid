@@ -79,17 +79,35 @@ To achieve this - we specify `grid-row: 1;` to both children.
 
 We want the content to appear right below the image and only the phone to be overlapping.
 
-We turn the herp text content container into a grid with 3 rows. The last row will be set to auto, so it can grow as the content grows.
+We turn the hero text content container into a grid with 3 rows. The last row will be set to auto, so it can grow as the content grows.
 
-The first and second row will have half the size of the full screen image.
+The first and second row should sum up to the height of the full screen image.
 
-So if we want our full screen image to be 400px hight, then the 1st two rows will be 200px each.
+So if we want our full screen image to be 400px hight, then the 1st two rows will be 200px each - if we want two rows with equal height.
 
 Again, to improve maintanability we can make use of CSS variables.
 
 ```css
-grid-template-rows: var(--hero-image-height) calc(var(--hero-image-height) * 0.6) auto;
+grid-template-rows: var(--hero-image-height / 2) calc(var(--hero-image-height) / 2) auto;
 ```
+
+We might want a different amount of overlapping, and not exactly half the image height.
+To do this, let's add one more variable, which will be the height of the phone.
+The overlap amount, which is the size of the second row, will be a percentage of the height of the phone.
+
+```css
+--overlap: calc(var(--phone-height) * 0.8);
+```
+This way we have one place to change when adjusting the overlap size. With value of `0.8`, 80% of the phone will be overlapping the full width image. With a value of a `0.2`, only 20% will be overlapping the full width image.
+
+Now the final value for the grid rows will be:
+
+```css
+grid-template-rows: calc(var(--hero-image-height) - var(--overlap)) var(--overlap) auto;
+```
+
+The first row is the total height of the image minus the overlap percentage. The second row has the size of the overlap.
+And the last row remains as auto, so it can grow in height as the content grows.
 
 **TODO: use final height for var(--hero-image-height)**
 
