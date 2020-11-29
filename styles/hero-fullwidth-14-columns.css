@@ -11,7 +11,7 @@
     --hero-image-height: 480px;
     --column-gap: 20px;
     --phone-height: 300px;
-    --overlap-percentage: 0.8;
+    --overlap-percentage: 0.6;
 }
 
 /*
@@ -19,8 +19,6 @@
     the first and last column will center the content, but also let us add full screen elements
 */
 .content-grid {
-    --overlap: calc(var(--phone-height) * var(--overlap-percentage));
-
     display: grid;
     grid-gap: var(--column-gap);
     /*
@@ -33,6 +31,8 @@
 
 /* The hero component will use the same content grid, but will add rows */
 .hero {
+    --overlap: calc(var(--phone-height) * var(--overlap-percentage));
+
     grid-template-rows: calc(var(--hero-image-height) - var(--overlap)) var(--overlap) auto;
     margin-bottom: 60px;
 }
