@@ -3,7 +3,7 @@
 Let's create a hero component with CSS grid.
 Our end result will be a hero UI component, that can features a large image, with some text below and an overlapping image. There will be two varations - one with the large image spanning edge to edge and one with the large image with confined width.
 
-![final hero](hero-final.png)
+![final hero](hero-fullwidth-final.png)
 
 ## Creating Grid
 
@@ -44,7 +44,7 @@ To make it even more flexible let's exchange the hardcoded value for the content
     --content-width: 960px;
 }
 
-.content-container {
+.grid {
     display: grid;
     grid-template-columns: 1fr minmax(auto, var(--content-width)) 1fr;
     padding: 0 20px;
@@ -56,7 +56,7 @@ That way we have only one place to change when we need to update it - great!
 We can set a general rule to center the content:
 
 ```css
-.content-container > * {
+.grid > * {
     grid-column: 2 / span 1;
 }
 ```
@@ -138,6 +138,8 @@ And the last row remains as auto, so it can grow in height as the content grows.
 
 When using css properties - we only need to change the value of the custom property, and the grid definition will be updated accordingly.
 
+![example full width hero with grid](hero-fullwidth-content-grid.png)
+
 ### Option 2
 
 With a grid with 14 columns we can create the overlap a bit easier.
@@ -152,10 +154,23 @@ the text content will span on 7 columns, and take up the last row
 
 the phone will span 2 rows, and take the remaining free columns
 
+![Hero fullwidth with one 14 columns grid](hero-fullwidth-14-columns.png)
+
 ## Conclusion
 
 We can use grid to create container that centers content on screen
 
 We can use 2 overlapping grids, to create the effect of overlapping content
 
-We can use 1 grid, but 14 columns might be difficult to think about
+We can use 1 grid, but 14 columns might be more difficult to think about
+
+
+
+using css grid inspector in firefox
+
+getting images from unsplash
+
+phone is built with html and css only 
+app ui as well
+
+
