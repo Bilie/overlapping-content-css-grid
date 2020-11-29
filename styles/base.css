@@ -6,30 +6,24 @@
     margin: 0;
 }
 
-:root {
-    --content-width: 1000px;
-}
-
 /* containers */
-.content-container {
-    max-width: var(--content-width);
-    margin: 0 auto;
-}
-
-.section-dark {
-    background-color: #555;
-    color: white;
+.page {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 
 .section-light-grey {
     background-color: #e5e5e5;
 }
 
-/* nav-list */
+/* List of demo links */
 .nav-list {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding-left: 30px;
 }
 
 .nav-list-item {
@@ -37,7 +31,6 @@
 }
 
 .nav-list-link {
-    display: block;
     padding: 8px;
     color: inherit;
 }
