@@ -1,12 +1,15 @@
 # Modern layouts with CSS Grid
 
 Let's create a hero component with CSS grid.
+Our end result will be a hero UI component, that can features a large image, with some text below and an overlapping image. There will be two varations - one with the large image spanning edge to edge and one with the large image with confined width.
 
-## Hero with fullwidth image
+![final hero](hero-final.png)
+
+## Creating Grid
 
 First things first - we will need to create a container that holds the content, centers it on screen and gives some padding on smaller screens.
 
-A commond CSS recipe to do this would be:
+A common CSS recipe to do this would be:
 
 ```css
 .content-container {
@@ -20,19 +23,25 @@ This way we have a very simple but fully responsive content container.
 
 Let's refactor this recipe to use CSS Grid instead.
 
+### Grid option 1
+
+Our `.content-container` is a now grid that has 3 columns - the most left and most right columns will be empty most of the time, they are the ones creating the extra spacing around our content on larger screens. The content itself will live in the middle column.
+
 ```css
 .content-container {
     display: grid;
-    grid-template-columns: 1fr minmax(auto, 900px) 1fr;
+    grid-template-columns: 1fr minmax(auto, 960px) 1fr;
     padding: 0 20px;
 }
 ```
 
-To make it even more flexible let's exchange the hardcoded value for the max width of the contnet with a CSS variable:
+![example content container with grid](example-content-container.png)
+
+To make it even more flexible let's exchange the hardcoded value for the content max width with a CSS custom property:
 
 ```css
 :root {
-    --content-width: 900px;
+    --content-width: 960px;
 }
 
 .content-container {
@@ -43,8 +52,6 @@ To make it even more flexible let's exchange the hardcoded value for the max wid
 ```
 
 That way we have only one place to change when we need to update it - great!
-
-Our content-container is a grid that has 3 columns - the most left and most right columns will be empty most of the time, they are the ones creating the extra spacing around our content on larger screens. The content itself will live in the middle column.
 
 We can set a general rule to center the content:
 
@@ -65,6 +72,25 @@ Whenever we want our content to span edge to edge, we can add a special class to
 ```
 
 So far so good - we can add content with fixed width, and we can add content that stretches full screen.
+
+### Grid option 2
+
+Another approach we can take, is to create 14 columns, first and last will be 1fr centering the centent on screen.
+And inbetween we will have 12 columns with fixed width in a absolute unit and fixed gap, also in asbolute unit like `px`.
+
+![example content container with grid with 14 columns](example-content-container-14-columns.png)
+
+```css
+.grid {
+    grid-template-columns: 1fr repeat(12, 75px) 1fr;
+}
+```
+
+This approach might be confusing at first, because we would need to count the column slightl different than what is in the design file.
+
+## Creating the hero content
+
+### Option 1
 
 Let's create the container that will hold the hero component.
 
@@ -109,35 +135,6 @@ grid-template-rows: calc(var(--hero-image-height) - var(--overlap)) var(--overla
 The first row is the total height of the image minus the overlap percentage. The second row has the size of the overlap.
 And the last row remains as auto, so it can grow in height as the content grows.
 
-**TODO: use final height for var(--hero-image-height)**
+When using css properties - we only need to change the value of the custom property, and the grid definition will be updated accordingly.
 
-we can have 2 grids that are overlapping each other
-
-we create one grid first that will be our content container
-
-1fr minmax(auto, 900px) 1fr
-
-we position the full width image from 1 to -1 - taking up all the space
-the image container should also have a fixed height
-
-we can make use of object fit, to position the image fit in the container
-
-the content iteself will take only the middle column
-
-we will create a grid in the hero text container as well
-we will add 12 columns, with the column gap - 20px
-rows - the last row will be auto - it should grow as the content grows
-the 1st two rows should be the height of the image divided by 2
-the 2nd row we can change - depending on how much we want the phone to overlap over the image
-image heigt divided by 2, then multiplied by % to be overlapping
-
-first row remains empty
-the hero text will take the last row, and the first 6 columns
-the phone will take the 2nd and 3rd row, but be aligned to the top
-
-## Card Hero
-
-- we get loading effect for free
-
--> note - how to make full screen images with grid
--> note - create your own design layout grid with CSS grid
+### Option 2
