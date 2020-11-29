@@ -2,13 +2,11 @@
 
 Let's create a hero component with CSS grid.
 
-Our end result will be a hero UI component, that can feature a large image, with some text below and an overlapping image. There will be two varations - one with the large image spanning edge to edge and one with the large image with confined width.
+Our end result will be a hero UI component, that can feature a large image, with some text below and an overlapping image. 
 
 ![final hero](hero-fullwidth-final.png)
 
-![final hero](hero-card-final.png)
-
-## Creating Grid
+## Creating content container
 
 First things first - we will need to create a container that holds the content, centers it on screen and gives some padding on smaller screens.
 
@@ -26,11 +24,9 @@ This way we have a very simple but fully responsive content container.
 
 Let's refactor this recipe to use CSS Grid instead.
 
-### Grid option: 3 column grid
+## Content container wih CSS Grid: 3 column grid
 
 First, we will define a grid container that has 3 columns:
-
-
 
 ```css
     
@@ -74,24 +70,8 @@ Whenever we want our content to span edge to edge, we can add a special class to
 
 So far so good - we can add content with fixed width, and we can add content that stretches full screen.
 
-### Grid option 2
-
-Another approach we can take, is to create 14 columns, first and last will be 1fr centering the centent on screen.
-And inbetween we will have 12 columns with fixed width in a absolute unit and fixed gap, also in asbolute unit like `px`.
-
-![example content container with grid with 14 columns](example-content-container-14-columns.png)
-
-```css
-.grid {
-    grid-template-columns: 1fr repeat(12, 75px) 1fr;
-}
-```
-
-This approach might be confusing at first, because we would need to count the column slightl different than what is in the design file.
 
 ## Creating the hero content
-
-### Option 1
 
 The 3 column grid container will have 2 children. One will hold the full screen image, and the other one will hold the hero text content and phone. 
 
@@ -169,37 +149,61 @@ Since we are using CSS custom properties, in our media queries we only need to c
 }
 ```
 
-### Option 2
+## Content container wih CSS Grid: 14 columns grid 
 
-With a grid with 14 columns we can create the overlap a bit easier.
+Another approach we can take, instead of using 2 overlapping grid containers, we can use one grid container.
+This grid container will have 14 columns. The first and last columns will be 1fr centering the centent on screen.
 
-the hero component will have 3 rows, like we had before
+Inbetween we will have 12 columns with fixed width in a absolute unit and fixed gap, also in absolute unit, `px`.
+For larger screens, the sum of these columns and column gaps should amount to the maximum size of our content:
 
-We have the image spanning all 14 columns, and taking up the 1st two rows
+```css
+:root {
+    --column-gap: 20px;
+}
 
-the hero content will span 12 columns with an offset of 1
+.content-grid {
+    grid-gap: var(--column-gap);
+    grid-template-columns: 1fr repeat(12, 75px) 1fr;
+}
+```
 
-the text content will span on 7 columns, and take up the last row
+![example content container with grid with 14 columns](example-content-container-14-columns.png)
 
-the phone will span 2 rows, and take the remaining free columns
+This approach might be confusing at first: we would need to count the column slightly different than what is in the design file. All content will be have an offset of one column, unless we want the content to stretch edge to edge.
+
+On smaller screens, we need to hide the first and last columns, and use the column gap to give us space around the content:
+
+```css
+.content-grid {
+    grid-template-columns: 0 repeat(12, 1fr) 0;
+}
+```
+
+It is important that we exchange the absolute units for flexible units like `fr`, so to avoid our grid overflowing.
+
+## Creating the hero content
+
+With a 14 columns grid we can create the overlap a bit easier.
+
+The hero component will have again 3 rows, just like before. The logic remains the same - the first two rows should sum to the total height of the hero image. The hero image will be spanning over all 14 columns, and taking up the first two rows.
+
+The hero text and phone will no longer be wrapped in one container. Instead, the hero text will span over 7 columns, with an offset of 1 column. It will again take up the last row. The phone will span over 2 rows, and take the remaining free columns, but the very last one.
 
 ![Hero fullwidth with one 14 columns grid](hero-fullwidth-14-columns.png)
 
+## Creating the hero content: variations
+
+We can easily create variations of this layout. For example we can create a hero card component, where the image does not stretch from edge to edge but is as wide as the content.
+
+![final hero](hero-card-final.png)
+
 ## Conclusion
 
-We can use grid to create container that centers content on screen
+We saw how we can utilize CSS Grid to create a nice layout with overlapping elements.
+We also transformed a common CSS recipe that centers content on screen to use CSS grid.
+We could use 2 overlapping grids or we can use 1 grid.
+The 14 columns approach seemed easier with fewer extra elements, but it might be more difficult to think about it.
 
-We can use 2 overlapping grids, to create the effect of overlapping content
-
-We can use 1 grid, but 14 columns might be more difficult to think about
-
-
-
-using css grid inspector in firefox
-
-getting images from unsplash
-
-phone is built with html and css only 
-app ui as well
-
-
+For this walk through, I have been using the CSS grid inspector in Firefox.
+The images are fro Unsplash.
