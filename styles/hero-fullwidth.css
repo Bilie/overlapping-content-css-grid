@@ -14,7 +14,7 @@
     --overlap-percentage: 0.6;
 }
 
-.hero-fullwidth {
+.hero {
     display: grid;
     /*
         the first and last column will be at least 20px wide, this will give us space on mobile
