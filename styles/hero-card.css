@@ -8,19 +8,32 @@
 
 :root {
     --content-width: 1000px;
-    --hero-image-height: 300px;
+    --hero-image-height: 480px;
     --column-gap: 20px;
+    --phone-height: 300px;
+    --overlap-percentage: 0.6;
 }
 
-.content-container {
+/* General 12 column content grid, we can reuse this class with other components */
+.content-grid {
+    grid-column: 2 / span 1;
     display: grid;
     grid-gap: var(--column-gap);
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: 250px calc(var(--hero-image-height) * 0.6) auto;
-    grid-auto-rows: auto;
-    max-width: var(--content-width);
-    margin: 0 auto;
-    padding: 0 20px;
+    grid-template-rows: calc(var(--hero-image-height) - var(--overlap)) var(--overlap) auto;
+}
+
+.hero {
+    /* Calculate overlap size */
+    --overlap: calc(var(--phone-height) * var(--overlap-percentage));
+
+    display: grid;
+    /*
+        the first and last column will be at least 20px wide, this will give us space on mobile
+        the middle column will be as much as the content, but no more than the width we have set, in this case 1120px
+    */
+    grid-template-columns: minmax(20px, 1fr) minmax(min-content, var(--content-width)) minmax(20px, 1fr);
+    margin-bottom: 60px;
 }
 
 .hero-image {
@@ -56,11 +69,12 @@
 /* Hero content */
 .hero-text-content {
     grid-column: 1 / span 12;
-    padding: 20px;
+    padding: 20px 0;
 }
 
 /* Hero texts */
 .hero-headline {
+    max-width: 90%;
     font-size: 3.8rem;
     line-height: 1.1;
     margin-bottom: 2.4rem;
@@ -83,16 +97,19 @@
 /* Phone */
 .hero-phone {
     width: 150px;
-    height: 300px;
+    height: var(--phone-height);
 }
 
 @media (min-width: 700px) {
     :root {
         --hero-image-height: 400px;
+        --phone-height: 400px;
+        --overlap-percentage: 0.3;
     }
 
     .hero-text-content {
         grid-column: 1 / span 7;
+        grid-row: 3;
     }
 
     .hero-phone-container {
@@ -102,6 +119,5 @@
 
     .hero-phone {
         width: 200px;
-        height: 400px;
     }
 }
