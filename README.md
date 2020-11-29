@@ -26,37 +26,37 @@ This way we have a very simple but fully responsive content container.
 
 Let's refactor this recipe to use CSS Grid instead.
 
-### Grid option 1
+### Grid option: 3 column grid
 
-Our `.content-container` is a now grid that has 3 columns - the most left and most right columns will be empty most of the time, they are the ones creating the extra spacing around our content on larger screens. The content itself will live in the middle column.
+First, we will define a grid container that has 3 columns:
+
+
 
 ```css
-.content-container {
-    display: grid;
-    grid-template-columns: 1fr minmax(auto, 960px) 1fr;
-    padding: 0 20px;
-}
+    
+    grid-template-columns: minmax(20px, 1fr) minmax(min-content, var(--content-width)) minmax(20px, 1fr);
 ```
+
+The most left and the most right column will be empty most of the time. 
+They are the ones creating the extra spacing around our content on larger screens. We will use these 2 columns when we need the content to span edge to edge. The main content will live in the middle column.
+
+The first and last column will be at least 20px wide, this will give us space on mobile.
+
+The middle column will be as wide as the content, but not expand beyond the width we have set, in this case 1120px.
 
 ![example content container with grid](example-content-container.png)
 
-To make it even more flexible let's exchange the hardcoded value for the content max width with a CSS custom property:
+Let's add the variable responsible for the size of the content:
 
 ```css
 :root {
-    --content-width: 960px;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: 1fr minmax(auto, var(--content-width)) 1fr;
-    padding: 0 20px;
+    --content-width: 1120px;
 }
 ```
 
 That way we have only one place to change when we need to update it - great!
 
-We can set a general rule to center the content:
+We can also set a default rule to center any content that is direct child of the 3 column grid:
 
 ```css
 .grid > * {
@@ -64,9 +64,7 @@ We can set a general rule to center the content:
 }
 ```
 
-This way the direct children of the content container will be centered by default.
-
-Whenever we want our content to span edge to edge, we can add a special class to it:
+Whenever we want our content to span edge to edge, we can add a special class to the HTML element:
 
 ```css
 .fullscreen {
@@ -95,37 +93,53 @@ This approach might be confusing at first, because we would need to count the co
 
 ### Option 1
 
-The 3 column grid container will have 2 children - one to hold the full screen image, and one to hold the text content and phone. This 3 column grid has no defined rows.
-The rows will be automatically created as we add more content (implicit grid).
+The 3 column grid container will have 2 children. One will hold the full screen image, and the other one will hold the hero text content and phone. 
 
+So far the 3 column grid has no defined rows and so rows will be automatically created as we add more content (implicit grid).
 
 If we do not explicitly say on which row the two children should appear, they will be placed where there is space. Since the image is spanning from edge to edge, the next child will take the next available row.
 
+We don't want the two to appear one below each other, but on top of each other a little.
 
-We dont want the two to appear one below each other, but on top of each other.
+With CSS Grid we ca achieve this easily, by placing the two items in the same row: we specify `grid-row: 1;` to both children.
 
-To achieve this - we specify `grid-row: 1;` to both children.
+So we are getting closer, but not quite. We want the content to appear right below the image and only the phone to be overlapping the hero image. We also want the text and phone to appear side by side.
 
-We want the content to appear right below the image and only the phone to be overlapping.
+We will transform the hero text content container into a grid with 12 columns and 3 rows. 
 
-We turn the hero text content container into a grid with 12 columns and 3 rows. The last row will be set to auto, so it can grow as the content grows.
+Each column will be 1 fraction of the free space, and we can add a gap of `20px`. This way we can position the text and phone right next to each other.
 
-The first and second row should sum up to the height of the full screen image.
+What we want to achieve with the rows is to push the text content down, so we can see the hero image through. The first and second row should sum up to the height of the full screen image. The last row will be set to auto, so it can grow as the content grows.
 
-So if we want our full screen image to be 400px hight, then the 1st two rows will be 200px each - if we want two rows with equal height.
+For example, if we have the hero full screen image set to 400px height, then the 1st two rows should sum to the same number, we can assign each of them to be 200px - if we are okay with two rows with equal height.
 
 Again, to improve maintanability we can make use of CSS variables.
 
 ```css
-grid-template-rows: var(--hero-image-height / 2) calc(var(--hero-image-height) / 2) auto;
+/* General 12 column content grid, we can reuse this class with other components */
+.content-grid {
+    display: grid;
+    grid-gap: var(--column-gap);
+    grid-template-columns: repeat(12, 1fr);
+}
+
+.hero-content {
+    grid-template-rows: var(--hero-image-height / 2) calc(var(--hero-image-height) / 2) auto;
+}
+
 ```
 
-We might want a different amount of overlapping, and not exactly half the image height.
-To do this, let's add one more variable, which will be the height of the phone.
+We might want a different amount of overlapping, and not exactly half the hero image height.
+
+To calculate how much overlap we want, we need to know the size of the phone, so let's add this as variable.
+
 The overlap amount, which is the size of the second row, will be a percentage of the height of the phone.
+We can save the percentage in a variable, so we can adjust it on different screen sizes as needed:
 
 ```css
---overlap: calc(var(--phone-height) * 0.8);
+:root {
+    --overlap-percentage: 0.6;
+}
 ```
 
 This way we have one place to change when adjusting the overlap size. With value of `0.8`, 80% of the phone will be overlapping the full width image. With a value of a `0.2`, only 20% will be overlapping the full width image.
@@ -133,15 +147,27 @@ This way we have one place to change when adjusting the overlap size. With value
 Now the final value for the grid rows will be:
 
 ```css
-grid-template-rows: calc(var(--hero-image-height) - var(--overlap)) var(--overlap) auto;
+.hero-content {
+    /* Calculate overlap size */
+    --overlap: calc(var(--phone-height) * var(--overlap-percentage));
+
+    grid-template-rows: calc(var(--hero-image-height) - var(--overlap)) var(--overlap) auto;
+}
 ```
 
-The first row is the total height of the image minus the overlap percentage. The second row has the size of the overlap.
-And the last row remains as auto, so it can grow in height as the content grows.
-
-When using css properties - we only need to change the value of the custom property, and the grid definition will be updated accordingly.
+The first row is the total height of the image minus the overlap percentage. The second row has the size of the overlap. The last row remains as `auto`, so it can grow in height as the content grows.
 
 ![example full width hero with grid](hero-fullwidth-content-grid.png)
+
+Since we are using CSS custom properties, in our media queries we only need to change the value of the custom property, and the grid definition will be updated accordingly. For example, this is how we can adjust the overlap amount on larger screens:
+
+```css
+@media (min-width: 700px) {
+    :root {
+        --overlap-percentage: 0.3;
+    }
+}
+```
 
 ### Option 2
 
