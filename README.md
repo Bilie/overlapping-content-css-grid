@@ -92,12 +92,12 @@ This approach might be confusing at first, because we would need to count the co
 
 ### Option 1
 
-Let's create the container that will hold the hero component.
+The 3 column grid container will have 2 children - one to hold the full screen image, and one to hold the text content and phone. This 3 column grid has no defined rows.
+The rows will be automatically created as we add more content (implicit grid).
 
-It will have class `.content-container` and it will have 2 children - one to hold the full screen image, and one to hold the text content and phone.
 
-When we created the `.content-container` we did not specify any rows. The rows will be automatically created as we add more content (implicit grid).
-If we do not explicitly say on which row the two children of `.content-container` should appear, they will be placed where there is space. Since the image is spanning from edge to edge, the next child will take the next row.
+If we do not explicitly say on which row the two children should appear, they will be placed where there is space. Since the image is spanning from edge to edge, the next child will take the next available row.
+
 
 We dont want the two to appear one below each other, but on top of each other.
 
@@ -105,7 +105,7 @@ To achieve this - we specify `grid-row: 1;` to both children.
 
 We want the content to appear right below the image and only the phone to be overlapping.
 
-We turn the hero text content container into a grid with 3 rows. The last row will be set to auto, so it can grow as the content grows.
+We turn the hero text content container into a grid with 12 columns and 3 rows. The last row will be set to auto, so it can grow as the content grows.
 
 The first and second row should sum up to the height of the full screen image.
 
@@ -124,6 +124,7 @@ The overlap amount, which is the size of the second row, will be a percentage of
 ```css
 --overlap: calc(var(--phone-height) * 0.8);
 ```
+
 This way we have one place to change when adjusting the overlap size. With value of `0.8`, 80% of the phone will be overlapping the full width image. With a value of a `0.2`, only 20% will be overlapping the full width image.
 
 Now the final value for the grid rows will be:
@@ -138,3 +139,23 @@ And the last row remains as auto, so it can grow in height as the content grows.
 When using css properties - we only need to change the value of the custom property, and the grid definition will be updated accordingly.
 
 ### Option 2
+
+With a grid with 14 columns we can create the overlap a bit easier.
+
+the hero component will have 3 rows, like we had before
+
+We have the image spanning all 14 columns, and taking up the 1st two rows
+
+the hero content will span 12 columns with an offset of 1
+
+the text content will span on 7 columns, and take up the last row
+
+the phone will span 2 rows, and take the remaining free columns
+
+## Conclusion
+
+We can use grid to create container that centers content on screen
+
+We can use 2 overlapping grids, to create the effect of overlapping content
+
+We can use 1 grid, but 14 columns might be difficult to think about
