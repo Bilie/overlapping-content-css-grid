@@ -14,46 +14,83 @@
     --overlap-percentage: 0.8;
 }
 
-.hero-fullwidth {
-    display: grid;
-    grid-template-columns: 20px repeat(12, 1fr) 20px;
-    background-color: white;
-    margin-bottom: 60px;
-}
-
-.hero-fullwidth.content-container {
+/*
+    General content grid, we can reuse this class with other components, it has 14 columns
+    the first and last column will center the content, but also let us add full screen elements
+*/
+.content-grid {
     --overlap: calc(var(--phone-height) * var(--overlap-percentage));
 
     display: grid;
     grid-gap: var(--column-gap);
-    /* grid-template-columns: repeat(12, 1fr); */
-    grid-template-rows: calc(var(--hero-image-height) - var(--overlap)) var(--overlap) auto;
-    grid-row: 1;
-    grid-column: 2 / span 1;
+    /*
+        First and last column will have no size, and the column gap will serve as padding
+        If we set the column to 12, then we will need to add padding of our own, 
+        as the column gap is not set on the outside of the grid, only between the columns
+    */
+    grid-template-columns: 0 repeat(12, 1fr) 0;
 }
 
-.hero-fullwidth .hero-image {
+/* The hero component will use the same content grid, but will add rows */
+.hero-fullwidth {
+    grid-template-rows: calc(var(--hero-image-height) - var(--overlap)) var(--overlap) auto;
+    margin-bottom: 60px;
+}
+
+/* Hero image */
+.hero-image {
     position: relative;
+    /* Take up all the available columns */
     grid-column: 1 / -1;
+    /* Take the 1st 2 rows */
     grid-row: 1 / span 2;
     height: calc(var(--hero-image-height) + var(--column-gap) * 1);
 
     background-color: #f8f8f8;
-    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));
-    /* background-image: linear-gradient(rgba(255, 105, 180, 0.3), rgba(255, 105, 180, 0.3)); */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center 40%;
-    border-radius: 0;
 }
 
-.hero-fullwidth .hero-content {
-    grid-column: 1 / span 12;
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 3;    
+}
+
+.hero-image:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 0;
+    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(254, 254, 254, 0.5));
+    z-index: 5;
+    content: '';
+    display: block;
+}
+
+/* Hero content */
+.hero-text-content {
+    grid-column: 2 / span 12;
     grid-row: -1;
-    padding: 20px;
+    padding: 20px 0;
 }
 
-.hero-fullwidth .hero-phone-container {
+/* Hero texts */
+.hero-headline {
+    max-width: 90%;
+    font-size: 3.8rem;
+    line-height: 1.1;
+    margin-bottom: 2.4rem;
+}
+
+.hero-lead {
+    font-size: 1.8rem;
+    line-height: 1.5;
+}
+
+.hero-phone-container {
     grid-column: 1 / span 12;
     grid-row: 2 / span 2;
     z-index: 10;
@@ -62,7 +99,8 @@
     perspective: 1000px;
 }
 
- .hero-fullwidth .hero-phone {
+/* Phone with CSS */
+.hero-phone {
     position: relative;
     border-radius: 20px;
     box-shadow: 0 0 12px 8px rgba(0,0,0,0.4), -3px -2px 0 2px #000000, -5px -2px 0 3px #ffffff59, 0 0 0 10px black, 5px 0 0 10px black;
@@ -75,7 +113,7 @@
     transform: rotateY(-34deg) rotateZ(15deg) rotateX(5deg);
 }
 
-.hero-fullwidth .hero-phone:before {
+.hero-phone:before {
     position: absolute;
     z-index: 2;
     top: 0;
@@ -90,7 +128,7 @@
     content: '';
 }
 
-.hero-fullwidth .hero-phone:after {
+.hero-phone:after {
     position: absolute;
     z-index: -1;
     bottom: 30px;
@@ -105,80 +143,36 @@
     transform: rotateZ(-5deg);
 }
 
-.hero-fullwidth .hero-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: relative;
-    z-index: 3;    
-}
-
-.hero-fullwidth .hero-image:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    bottom: 0;
-    background-image: linear-gradient(rgba(255, 105, 180, 0.3), rgba(255, 105, 180, 0.3));
-    z-index: 5;
-    content: '';
-    display: block;
-}
-
-/* Hero texts */
-.hero-fullwidth .hero-headline {
-    max-width: 90%;
-    font-size: 3.8rem;
-    line-height: 1.1;
-    margin-bottom: 2.4rem;
-}
-
-.hero-fullwidth .hero-lead {
-    font-size: 1.8rem;
-    line-height: 1.5;
-}
-
-/* @media (min-width: 700px) {
-    .hero-fullwidth {
-        grid-template-columns: 1fr repeat(12, 40px) 1fr;
-    }
-} */
-
+/* Large screens styles */
 @media (min-width: 700px) {
     :root {
-        --hero-image-height: 500px;
+        --hero-image-height: 600px;
         --phone-height: 400px;
         --overlap-percentage: 0.3;
     }
 
-    /* .hero-fullwidth {
+    .hero-fullwidth {
         grid-template-columns: 1fr repeat(12, 1fr) 1fr;
-    } */
+    }
 
-    .hero-fullwidth .hero-content {
+    .hero-text-content {
         grid-column: 2 / span 7;
         grid-row: 3;
     }
 
-    .hero-fullwidth .hero-phone-container {
+    .hero-phone-container {
         grid-column: 10 / span 2;
         grid-row: span 2 / -1;
     }
 
-    .hero-fullwidth .hero-phone {
+    .hero-phone {
         width: 200px;
         height: var(--phone-height);
     }    
 }
 
-@media (min-width: 940px) {
-    .hero-fullwidth {
-        grid-template-columns: 1fr repeat(12, 60px) 1fr;
-    }
-}
-
-@media (min-width: 1120px) {
+/* Even larger screens styles */
+@media (min-width: 1400px) {
     .hero-fullwidth {
         grid-template-columns: 1fr repeat(12, 75px) 1fr;
     }
