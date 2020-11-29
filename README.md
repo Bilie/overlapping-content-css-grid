@@ -1,9 +1,12 @@
-# Modern layouts with CSS Grid
+# Modern layouts with CSS Grid: Overlapping content
 
 Let's create a hero component with CSS grid.
-Our end result will be a hero UI component, that can features a large image, with some text below and an overlapping image. There will be two varations - one with the large image spanning edge to edge and one with the large image with confined width.
+
+Our end result will be a hero UI component, that can feature a large image, with some text below and an overlapping image. There will be two varations - one with the large image spanning edge to edge and one with the large image with confined width.
 
 ![final hero](hero-fullwidth-final.png)
+
+![final hero](hero-card-final.png)
 
 ## Creating Grid
 
