@@ -18,6 +18,7 @@
     display: grid;
     grid-template-columns: 1fr minmax(min-content,var(--content-width)) 1fr;
     background-color: white;
+    margin-bottom: 60px;
 }
 
 .hero-fullwidth .content-container {
