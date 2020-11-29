@@ -32,7 +32,7 @@
 }
 
 /* The hero component will use the same content grid, but will add rows */
-.hero-fullwidth {
+.hero {
     grid-template-rows: calc(var(--hero-image-height) - var(--overlap)) var(--overlap) auto;
     margin-bottom: 60px;
 }
@@ -151,7 +151,7 @@
         --overlap-percentage: 0.3;
     }
 
-    .hero-fullwidth {
+    .hero {
         grid-template-columns: 1fr repeat(12, 1fr) 1fr;
     }
 
@@ -173,7 +173,7 @@
 
 /* Even larger screens styles */
 @media (min-width: 1400px) {
-    .hero-fullwidth {
+    .hero {
         grid-template-columns: 1fr repeat(12, 75px) 1fr;
     }
 }
