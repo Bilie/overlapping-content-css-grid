@@ -12,11 +12,7 @@
     --column-gap: 20px;
 }
 
-.hero-card {
-    background-color: white;
-}
-
-.hero-card .content-container {
+.content-container {
     display: grid;
     grid-gap: var(--column-gap);
     grid-template-columns: repeat(12, 1fr);
@@ -27,23 +23,16 @@
     padding: 0 20px;
 }
 
-.hero-card .hero-image {
+.hero-image {
     position: relative;
     grid-column: 1 / span 12;
     grid-row: 1 / span 2;
-    background-color: #f8f8f8;
-    /* background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../images/brooke-cagle-tLG2hcpITZE-unsplash.jpg);
-    background-image: linear-gradient(rgba(255, 105, 180, 0.3), rgba(255, 105, 180, 0.3)), url(../images/brooke-cagle-tLG2hcpITZE-unsplash.jpg); */
-    background-image: linear-gradient(rgba(255, 105, 180, 0.3), rgba(255, 105, 180, 0.3));
-    background-size: cover;
-    background-position: left center;
-    background-repeat: no-repeat;
     border-radius: 6px;
-
+    background-color: #f8f8f8;
     overflow: hidden;
 }
 
-.hero-card .hero-image:before {
+.hero-image:before {
     position: absolute;
     top: 0;
     left: 0;
@@ -56,7 +45,7 @@
     display: block;
 }
 
-.hero-card .hero-image img {
+.hero-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -64,12 +53,25 @@
     z-index: 3;    
 }
 
-.hero-card .hero-content {
+/* Hero content */
+.hero-text-content {
     grid-column: 1 / span 12;
     padding: 20px;
 }
 
-.hero-card .hero-phone-container {
+/* Hero texts */
+.hero-headline {
+    font-size: 3.8rem;
+    line-height: 1.1;
+    margin-bottom: 2.4rem;
+}
+
+.hero-lead {
+    font-size: 1.8rem;
+    line-height: 1.5;
+}
+
+.hero-phone-container {
     grid-column: 1 / span 12;
     grid-row: 2 / span 2;
     z-index: 10;
@@ -79,7 +81,7 @@
 }
 
 /* Phone */
-.hero-card .hero-phone {
+.hero-phone {
     position: relative;
     
     border-radius: 20px;
@@ -93,7 +95,7 @@
     transform: rotateY(-34deg) rotateZ(15deg) rotateX(5deg);
 }
 
-.hero-card .hero-phone:before {
+.hero-phone:before {
     position: absolute;
     z-index: 2;
     top: 0;
@@ -108,7 +110,7 @@
     content: '';
 }
 
-.hero-card .hero-phone:after {
+.hero-phone:after {
     position: absolute;
     z-index: -1;
     bottom: 30px;
@@ -123,33 +125,21 @@
     transform: rotateZ(-5deg);
 }
 
-/* Hero texts */
-.hero-card .hero-headline {
-    font-size: 3.8rem;
-    line-height: 1.1;
-    margin-bottom: 2.4rem;
-}
-
-.hero-card .hero-lead {
-    font-size: 1.8rem;
-    line-height: 1.5;
-}
-
 @media (min-width: 700px) {
     :root {
         --hero-image-height: 400px;
     }
 
-    .hero-card .hero-content {
+    .hero-text-content {
         grid-column: 1 / span 7;
     }
 
-    .hero-card .hero-phone-container {
+    .hero-phone-container {
         grid-column: 8 / span 4;
         grid-row: span 2 / -1;
     }
 
-    .hero-card .hero-phone {
+    .hero-phone {
         width: 200px;
         height: 400px;
     }
