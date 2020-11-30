@@ -39,7 +39,9 @@
 }
 
 .section-light-grey {
-    background-color: #e5e5e5;
+    background-image: linear-gradient(#e5e5e5, #e5e5e5 5%, rgba(221, 221, 221, 0) 5%, rgba(221, 221, 221, 0) 95%, #e5e5e5 95%, #e5e5e5),
+    linear-gradient(to left, #e5e5e5, #e5e5e5 5%, #ddd 5%, #ddd 95%, #e5e5e5 95%, #e5e5e5);
+    background-size: 20px 20px;
 }
 
 /* List of demo links */
