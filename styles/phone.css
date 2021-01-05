@@ -14,7 +14,7 @@
 .hero-phone:before {
     position: absolute;
     z-index: 2;
-    top: 0;
+    top: -1px;
     left: 0;
     right: 0;
     display: block;
